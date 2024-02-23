@@ -57,7 +57,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        console.log({ credentials });
         try {
           const auth = await axios.post(
             env.KAERU_SERVICE_URL + "/api/token/",
