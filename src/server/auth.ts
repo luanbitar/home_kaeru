@@ -6,9 +6,8 @@ import {
 } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-import { env } from "~/env";
 import { db } from "~/server/db";
-import axios from "axios";
+import { kaeruService } from "~/services/kaeru";
 
 declare module "next-auth" {
   interface User {
@@ -27,6 +26,9 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: "/auth/login",
+  },
   session: {
     strategy: "jwt",
   },
@@ -58,8 +60,8 @@ export const authOptions: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         try {
-          const auth = await axios.post(
-            env.KAERU_SERVICE_URL + "/api/token/",
+          const auth = await kaeruService.post(
+            "/api/token/",
             {
               email: credentials?.email,
               password: credentials?.password,

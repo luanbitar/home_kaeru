@@ -2,50 +2,122 @@
 
 import * as React from "react";
 
-import { Label } from "~/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Facebook, Github, Loader, Twitter } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { z } from "zod";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+const formSchema = z.object({
+  email: z.string().email().min(2).max(50),
+  password: z.string().min(2).max(50),
+});
+
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const credentialsError = searchParams.get("error");
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  const form = useForm<z.infer<typeof formSchema>>({
+    reValidateMode: "onChange",
+    resolver: zodResolver(formSchema),
+  });
+
+  React.useEffect(() => {
+    if (credentialsError)
+      form.setError("email", {
+        type: "manual",
+        message: "Email ou senha inválidos",
+      });
+  }, []);
+
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      callbackUrl: callbackUrl,
+    });
+    setIsLoading(false);
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="grid gap-2">
+            <div className="grid gap-1">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder="name@example.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        disabled={isLoading}
+                        onFocus={() => form.clearErrors("email")}
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Senha</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        placeholder="*****"
+                        type="password"
+                        autoCapitalize="none"
+                        disabled={isLoading}
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button disabled={isLoading}>
+              {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+              Entrar
+            </Button>
           </div>
-          <Button disabled={isLoading}>
-            {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In with Email
-          </Button>
-        </div>
-      </form>
+        </form>
+      </Form>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
