@@ -22,6 +22,7 @@ export const env = createEnv({
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
     KAERU_SERVICE_URL: z.string().url(),
+    DATABASE_URL: z.string().url(),
   },
 
   /**
@@ -42,6 +43,7 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     KAERU_SERVICE_URL: process.env.KAERU_SERVICE_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
