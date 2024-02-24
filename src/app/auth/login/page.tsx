@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { UserAuthForm } from "./user-auth-form";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -33,7 +34,9 @@ export default function LoginPage() {
                 Entre com seu email e senha
               </p>
             </div>
-            <UserAuthForm />
+            <Suspense>
+              <UserAuthForm />
+            </Suspense>
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
