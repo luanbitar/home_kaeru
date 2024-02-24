@@ -1,6 +1,7 @@
 import Head from "next/head";
 import LoginBtn from "./loginBtn";
 import { ModeToggle } from "~/components/ui/mode-toggle";
+import { ChartExample } from "./chart-example";
 
 export default function Home() {
   return (
@@ -12,6 +13,10 @@ export default function Home() {
       <LoginBtn />
 
       <ModeToggle />
+
+      <div className="h-28 w-full max-w-96">
+        <ChartExample />
+      </div>
 
       {/* <div className="w-full max-w-sm space-y-8">
         <div>
