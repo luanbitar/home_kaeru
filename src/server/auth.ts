@@ -1,4 +1,3 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import {
   getServerSession,
   type DefaultSession,
@@ -6,8 +5,9 @@ import {
 } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-import { db } from "~/server/db";
 import { kaeruService } from "~/services/kaeru";
+// import { db } from "~/server/db";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 declare module "next-auth" {
   interface User {
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-  adapter: PrismaAdapter(db),
+  // adapter: PrismaAdapter(db),
   providers: [
     Credentials({
       name: "Credentials",

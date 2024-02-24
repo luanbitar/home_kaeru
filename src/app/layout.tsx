@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/ui/theme-provider";
+import { Toaster } from "~/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -38,6 +39,7 @@ export default async function RootLayout({
         >
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
