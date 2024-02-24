@@ -1,16 +1,16 @@
 import Head from "next/head";
-import LoginBtn from "./loginBtn";
+import LoginBtn from "../loginBtn";
 import { ModeToggle } from "~/components/ui/mode-toggle";
-import { ChartExample } from "./chart-example";
-import { useProtectedPage } from "~/hooks/useProtectedPage";
+import { ChartExample } from "../chart-example";
+import { kaeruService } from "~/services/kaeru";
 
 export default async function Home() {
-  await useProtectedPage();
-
+  const { data: accounts } = await kaeruService.get("/conta/");
+  console.log({ accounts });
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div>
       <Head>
-        <title>Home page</title>
+        <title>Kaeru - Início</title>
       </Head>
 
       <LoginBtn />
