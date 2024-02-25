@@ -8,7 +8,7 @@ export async function ListAccounts() {
     <div className="flex flex-col gap-4">
       <h1>Contas</h1>
 
-      <section className="grid grid-cols-2 gap-3">
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {accounts.map((account: any) => (
           <ListAccountCard key={account.id} account={account} />
         ))}
