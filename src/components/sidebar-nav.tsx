@@ -51,7 +51,7 @@ export function SidebarNav({
           </div>
         ))}
       </div>
-      <header className="fixed top-0 z-[1] flex w-screen items-center justify-between bg-background px-6 py-2">
+      <header className="fixed top-0 z-[1] flex w-screen items-center justify-between bg-background px-4 py-2">
         <h1>Kaeru</h1>
 
         <div>
