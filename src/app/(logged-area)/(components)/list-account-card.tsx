@@ -4,6 +4,7 @@ import {
   CardContainer,
   CardItem,
 } from "~/components/aceternity/3d-card";
+import { getBRLCurrency } from "~/utils/getBRLcurrency";
 
 export function ListAccountCard({ account }: { account: any }) {
   return (
@@ -14,10 +15,7 @@ export function ListAccountCard({ account }: { account: any }) {
         </CardItem>
 
         <CardItem as="p" translateZ="60" className="mt-2 max-w-sm text-sm">
-          {new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(account?.saldo_atual ?? 0)}
+          {getBRLCurrency(account?.saldo_atual)}
         </CardItem>
       </CardBody>
     </CardContainer>

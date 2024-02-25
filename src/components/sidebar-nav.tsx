@@ -56,7 +56,7 @@ export function SidebarNav({
 
         <div>
           <ModeToggle />
-          <UserNav session={session} items={items} />
+          <UserNav session={session} items={items} pathname={pathname} />
         </div>
       </header>
     </>

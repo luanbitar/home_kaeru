@@ -10,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { SidebarNavItem } from "~/types/Sidebar";
@@ -21,6 +20,7 @@ export function UserNav({
 }: {
   session: Session | null;
   items: SidebarNavItem[];
+  pathname: string | null;
 }) {
   return (
     <DropdownMenu>

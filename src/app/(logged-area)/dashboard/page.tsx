@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { ReceiptHistoryChart } from "../receipt-history-chart";
+import { ReceiptHistoryChart } from "../(components)/receipt-history-chart";
 import dayjs from "dayjs";
 import { kaeruService } from "~/services/kaeru";
 
