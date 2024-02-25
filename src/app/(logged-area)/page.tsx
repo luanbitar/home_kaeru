@@ -6,8 +6,6 @@ import { kaeruService } from "~/services/kaeru";
 import { ListAccounts } from "./(components)/list-accounts";
 
 export default async function Home() {
-  const { data: accounts } = await kaeruService.get("/conta/");
-  console.log({ accounts });
   return (
     <div className="flex flex-1 flex-col">
       <Head>

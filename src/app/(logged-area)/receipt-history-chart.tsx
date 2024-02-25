@@ -1,8 +1,9 @@
 "use client";
 import dayjs from "dayjs";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+
 import "dayjs/locale/pt-br";
 dayjs.locale("pt-br");
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 export function ReceiptHistoryChart({ receipts }: { receipts: any[] }) {
   const mappedReceipts = receipts.map((receipt) => ({

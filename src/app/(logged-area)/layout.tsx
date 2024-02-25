@@ -11,7 +11,7 @@ export default async function LoggedAreaLayout({
   const session = await getServerAuthSession();
 
   return (
-    <div className="relative flex min-h-screen">
+    <div className="relative flex min-h-screen w-full">
       <SidebarNav session={session} />
 
       <main className="flex flex-1 flex-col px-4 py-14 sm:px-6 lg:px-8">
