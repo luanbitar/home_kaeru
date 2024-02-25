@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 
 import { SidebarNavItem } from "~/types/Sidebar";
 import { cn } from "~/lib/utils";
+import { UserNav } from "./user-nav";
+import { Session } from "next-auth";
+import { ModeToggle } from "./ui/mode-toggle";
 
 const defaultConfig: SidebarNavItem[] = [
   {
@@ -23,16 +26,20 @@ const defaultConfig: SidebarNavItem[] = [
 ];
 export interface SidebarNavProps {
   items?: SidebarNavItem[];
+  session: Session | null;
 }
 
-export function SidebarNav({ items = defaultConfig }: SidebarNavProps) {
+export function SidebarNav({
+  items = defaultConfig,
+  session,
+}: SidebarNavProps) {
   const pathname = usePathname();
 
   if (!items.length) return null;
 
   return (
     <>
-      <div className="sticky top-0 hidden h-screen w-full max-w-xs px-4 py-8 sm:block">
+      <div className="sticky top-0 hidden h-screen w-full max-w-[300px] px-4 py-8 sm:block">
         {items.map((item, index) => (
           <div key={index} className={cn("pb-8")}>
             <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-medium">
@@ -44,8 +51,13 @@ export function SidebarNav({ items = defaultConfig }: SidebarNavProps) {
           </div>
         ))}
       </div>
-      <header className="fixed top-0 z-[1] flex w-screen bg-background px-4 py-4 sm:hidden">
+      <header className="fixed top-0 z-[1] flex w-screen items-center justify-between bg-background px-6 py-2">
         <h1>Kaeru</h1>
+
+        <div>
+          <ModeToggle />
+          <UserNav session={session} items={items} />
+        </div>
       </header>
     </>
   );

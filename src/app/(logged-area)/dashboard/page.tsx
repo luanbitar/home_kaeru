@@ -1,6 +1,4 @@
 import Head from "next/head";
-import { ModeToggle } from "~/components/ui/mode-toggle";
-import LoginBtn from "../../loginBtn";
 import { ReceiptHistoryChart } from "../receipt-history-chart";
 import dayjs from "dayjs";
 import { kaeruService } from "~/services/kaeru";
@@ -12,14 +10,10 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <Head>
         <title>Kaeru - Dashboard</title>
       </Head>
-
-      <ModeToggle />
-
-      <LoginBtn />
 
       <ReceiptHistoryChart receipts={receipts} />
     </div>
