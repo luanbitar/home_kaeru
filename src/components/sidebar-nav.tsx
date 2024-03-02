@@ -18,8 +18,12 @@ const defaultConfig: SidebarNavItem[] = [
         href: "/",
       },
       {
-        title: "Dashboard",
-        href: "/dashboard",
+        title: "Receitas",
+        href: "/receipts",
+      },
+      {
+        title: "Despesas",
+        href: "/expenses",
       },
     ],
   },
@@ -39,7 +43,7 @@ export function SidebarNav({
 
   return (
     <>
-      <div className="sticky top-0 hidden h-screen w-[300px] px-4 py-8 md:block">
+      <div className="sticky top-0 hidden h-screen w-[200px] px-4 py-8 md:block">
         {items.map((item, index) => (
           <div key={index} className={cn("pb-8")}>
             <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-medium">

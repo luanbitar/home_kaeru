@@ -4,6 +4,8 @@ import { kaeruService } from "~/services/kaeru";
 import dayjs from "dayjs";
 import { ReceiptHistoryChart } from "./(components)/receipt-history-chart";
 import { ExpensesHistoryChart } from "./(components)/expenses-chart";
+import { PageSpotlight } from "./(components)/page-spotlight";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export default async function Home() {
   const { data: receipts } = await kaeruService.post("/receita/total_mensal/", {
@@ -21,17 +23,30 @@ export default async function Home() {
       <Head>
         <title>Kaeru - Início</title>
       </Head>
+      <PageSpotlight />
 
       <ListAccounts />
 
       <section className="grid grid-cols-1 gap-4 pt-6 sm:grid-cols-2">
         <div className="flex flex-col gap-4">
-          <h6>Receitas</h6>
-          <ReceiptHistoryChart receipts={receipts} />
+          <Card className="col-span-4">
+            <CardHeader>
+              <CardTitle>Receitas</CardTitle>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <ReceiptHistoryChart receipts={receipts} />
+            </CardContent>
+          </Card>
         </div>
         <div className="flex flex-col gap-4">
-          <h6>Despesas</h6>
-          <ExpensesHistoryChart expenses={expenses} />
+          <Card className="col-span-4">
+            <CardHeader>
+              <CardTitle>Despesas</CardTitle>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <ExpensesHistoryChart expenses={expenses} />
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>
