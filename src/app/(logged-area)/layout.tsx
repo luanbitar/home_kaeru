@@ -1,7 +1,6 @@
 import { useProtectedPage } from "~/hooks/useProtectedPage";
 import { SidebarNav } from "~/components/sidebar-nav";
 import { getServerAuthSession } from "~/server/auth";
-import { Spotlight } from "~/components/aceternity/spotlight";
 
 export default async function LoggedAreaLayout({
   children,

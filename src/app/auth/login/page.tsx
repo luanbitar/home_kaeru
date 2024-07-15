@@ -1,4 +1,3 @@
-import { getServerAuthSession } from "~/server/auth";
 import { UserAuthForm } from "./user-auth-form";
 import { Suspense } from "react";
 import { kaeruService } from "~/services/kaeru";
@@ -6,7 +5,7 @@ import { kaeruService } from "~/services/kaeru";
 export default async function LoginPage() {
   const createUser = async (email: string, password: string) => {
     "use server";
-    await kaeruService.post("/usuario/", {
+    await kaeruService.post("/usuario/cadastrar/", {
       email,
       password,
       password_confirm: password,
@@ -17,7 +16,7 @@ export default async function LoginPage() {
 
   return (
     <>
-      <div className="container relative flex h-[800px] flex-col items-center justify-center lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative flex flex-col items-center justify-center lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg font-medium">
